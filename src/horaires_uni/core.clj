@@ -43,6 +43,7 @@
 
 ;; Filesystem storage (implementation of TimetableStore)
 (defn make-fs-store []
+  ;; Ensure timetable.json exists by creating it
   (let [_ (spit "timetable.json" (pr-str timetable))]
     (reify TimetableStore
       (-get-timetable [_] (read-string (slurp "timetable.json")))
@@ -51,6 +52,7 @@
 ;; DB storage (implementation of TimetableStore)
 (defn make-db-store []
   (let [db {:dbtype "h2" :dbname "mezza"}
+        ;; Ensure table TIMETABLES exists with data by creating it
         _ (jdbc/execute! db ["DROP TABLE IF EXISTS TIMETABLES"])
         _ (jdbc/execute! db ["CREATE TABLE TIMETABLES (TIMETABLE VARCHAR(2000))"])
         _ (jdbc/execute-one! db ["INSERT INTO TIMETABLES (TIMETABLE) VALUES (?)" (pr-str timetable)])]
