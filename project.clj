@@ -8,5 +8,7 @@
                  [ring/ring-core "1.9.4"]
                  [ring/ring-jetty-adapter "1.9.4"]
                  [ring/ring-json "0.5.1"]
+                 [com.h2database/h2 "1.4.200"]
+                 [com.github.seancorfield/next.jdbc "1.2.709"]
                  [compojure "1.6.2"]]
   :repl-options {:init-ns horaires-uni.core})
